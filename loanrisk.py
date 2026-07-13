@@ -1,6 +1,7 @@
 import json
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
 customer={}
 try:
     with open("Loan\cust_data.json","r")as f:
@@ -521,6 +522,36 @@ def eligbleCustomers():
     el.to_csv("Loan\eligble_customer.csv",index=False)
     print(el)
 
+def salaryBarPlot():
+    df=pd.read_csv("Loan\customer.csv")
+    plt.figure(figsize=(10,5))
+    plt.bar(df["name"],df["salary"],color="r")
+    for i in range(len(df["salary"])):
+        plt.text(i,df["salary"][i],df["salary"][i])
+    plt.xticks(rotation=20)
+    plt.xlabel("Customer's Name")
+    plt.ylabel("Customer's Salary")
+    plt.title("Customer Salary Analysis")
+    plt.grid(axis="y")
+    plt.savefig("salary_bar_plot.png")
+    plt.tight_layout()
+    plt.show()
+
+def loanBarplot():
+    df=pd.read_csv("Loan\customer.csv")
+    plt.figure(figsize=(10,5))
+    plt.bar(df["name"],df["loan"],color="r")
+    for i in range(len(df["salary"])):
+        plt.text(i,df["loan"][i],df["loan"][i])
+    plt.xticks(rotation=20)
+    plt.xlabel("Customer's Name")
+    plt.ylabel("Customer's Loam")
+    plt.title("Customer Loan Analysis")
+    plt.grid(axis="y")
+    plt.savefig("loan_bar_plot.png")
+    plt.tight_layout()
+    plt.show()
+
 while True:
     print("Loan Risk Calculate......................................")
     print("0.Exit")
@@ -556,6 +587,9 @@ while True:
     print("27.Safe Customer's")
     print("28.Risk Customer's")
     print("29.Eliglbe Customer's")
+    print("Matplotlib Part-------------------------------------------------")
+    print("30.Salary Plot Bar")
+    print("31.Loan Plot Bar")
     choice=int(input("Enter Your Choice:"))
     if(choice==1):
         addCustomer()
@@ -615,6 +649,10 @@ while True:
         exportRisk()
     elif(choice==29):
         eligbleCustomers()
+    elif(choice==30):
+        salaryBarPlot()
+    elif(choice==31):
+        loanBarplot()
     elif(choice==0):
         print("Exit")
         break
