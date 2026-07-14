@@ -59,7 +59,7 @@ def showCustomer():
         print("Experience:",customer[customer_id]["exp"])
         print("Risk:",customer[customer_id]["risk"])
     customerData()
-def searchCustomer():
+def searchCustomerById():
     print("===================Details of Search Customer==========================")
     customer_id=int(input("Enter Customer ID:"))
     if customer_id in customer:
@@ -104,7 +104,7 @@ def deleteCustomer():
     customerData()
     saveCsv()
 # Numpy part Start
-def averageSalary():
+def calculateAverageSalary():
     print("=======================Average Salary===================")
     salary=[]
     for customer_id in customer:
@@ -113,7 +113,7 @@ def averageSalary():
     avg=np.mean(salary_c)
     print("Average Salary Of Customer's:",avg)
 
-def maxLoanAmount():
+def findMaximumLoanAmount():
     print("===================Maxium Loan Amount========================")
     loan=[]
     for customer_id in customer:
@@ -129,7 +129,7 @@ def minimumCreditScore():
     credit_score=np.array(credits)
     print("Minimum Credit Score:",np.min(credit_score))
 
-def totalCustomer():
+def countTotalCustomers():
     print("=================Total Customer's=======================")
     total=[]
     for customer_id in customer:
@@ -137,7 +137,7 @@ def totalCustomer():
     total_customer=np.array(total)
     print("Total Customer's:",total_customer.size)
 
-def highRiskCustomers():
+def displayHighRiskCustomers():
     print("===============High Risk Customers=======================")
     risk=[]
     for customer_id in customer:
@@ -158,7 +158,7 @@ def highRiskCustomers():
         else:
             print("No Risk Customer's!")
 
-def highSalaryCustomer():
+def displayHighSalaryCustomers():
     print("==================================")
     salary=[]
     for customer_id in customer:
@@ -181,7 +181,7 @@ def highSalaryCustomer():
             print("Experience:",customer[customer_id]["exp"])
             print("==================================")
 
-def lowSalaryLevelCustomer():
+def displayLowSalaryCustomers():
     print("==================================")
     salary=[]
     for customer_id in customer:
@@ -204,7 +204,7 @@ def lowSalaryLevelCustomer():
             print("Experience:",customer[customer_id]["exp"])
             print("==================================")
 
-def loanToSalaryRatio():
+def calculateLoanToSalaryRatio():
     print("==================================")
     salary=[]
     loan=[]
@@ -230,7 +230,7 @@ def loanToSalaryRatio():
             print("Status : Safe")
         print("==================================")
 
-def stdDeviation():
+def calculateSalaryStdDeviation():
     print("==================================")
     salary=[]
     for customer_id in customer:
@@ -238,7 +238,7 @@ def stdDeviation():
     std_d=np.array(salary)
     print("Standart Deviation:",np.std(std_d))
 
-def medianmiddle():
+def  calculateMedianSalary():
     print("==================================")
     salary=[]
     for customer_id in customer:
@@ -246,7 +246,7 @@ def medianmiddle():
     median_s=np.array(salary)
     print("Middle Salary",np.median(median_s))
 
-def salaryPercentaile():
+def calculateSalaryPercentile():
     print("==================================")
     salary=[]
     for customer_id in customer:
@@ -255,7 +255,7 @@ def salaryPercentaile():
     per=int(input("Enter Percentaile:"))
     print(f"{per}Percentile Salary :",np.percentile(per_s,per))
 
-def topHighest5():
+def displayTopFiveLoanCustomers():
     loan=[]
     for customer_id in customer:
         loan.append(customer[customer_id]["loan"])
@@ -276,7 +276,7 @@ def topHighest5():
         print("Risk :", customer[cid]["risk"])
         print("==========================================")
 
-def top5highestSalary():
+def displayTopFiveSalaryCustomers():
     salary=[]
     for customer_id in customer:
         salary.append(customer[customer_id]["salary"])
@@ -297,7 +297,7 @@ def top5highestSalary():
         print("Risk :", customer[cid]["risk"])
         print("==========================================")
 
-def loanDistAnalysis():
+def analyzeLoanDistribution():
     loan=[]
     for customer_id in customer:
         loan.append(customer[customer_id]["loan"])
@@ -322,7 +322,7 @@ def loanDistAnalysis():
     print(f"10- lakh Above: {count4} Customer's")
 
 # ==========================================Pandas============================================
-def customerReport():
+def generateCustomerReport():
     df=pd.read_csv("Loan\customer.csv")
     print("============= CUSTOMER REPORT =============")
     print("Total Customer's:",len(df))
@@ -341,7 +341,7 @@ def customerReport():
     print("Total Columns:",len(df.columns))
     print("===========================================")
 
-def salaryAnalysis():
+def analyzeSalary():
     df=pd.read_csv("Loan\customer.csv")
     print("=============== Salary Analysis ===============")
     print("Average Salary:",df["salary"].mean())
@@ -360,7 +360,7 @@ def salaryAnalysis():
     print(l_salary.head(5))
     print("=========================================")
 
-def loanAnalysis():
+def analyzeLoan():
     df=pd.read_csv("Loan\customer.csv")
     print("=============== Loan Analysis ===============")
     print("Average Loan:",df["loan"].mean())
@@ -376,7 +376,7 @@ def loanAnalysis():
     print(df.nsmallest(5,"loan"))
     print("=========================================")
 
-def riskAnalysis():
+def analyzeRisk():
     df=pd.read_csv("Loan\customer.csv")
     print("=============== Risk Analysis ===============")
     var_count=df.groupby("risk")
@@ -453,12 +453,12 @@ def searchCustomer():
         else:
             print("You Enter Wrong Choice")
 
-def advancedSearch():
+def  advancedCustomerSearch():
     df=pd.read_csv("Loan\customer.csv")
     advance=df.query("salary>=50000 and loan<=40000 and credit>=700 and risk=='safe' ")
     print(advance)
 
-def dataCleaningMenu():
+def manageDataCleaning():
     while True:
         print("========== Data Cleaning ==========")
         print("1. Show Missing Values")
@@ -504,25 +504,25 @@ def dataCleaningMenu():
         else:
             print("You Entered Wrong Choice")
 
-def exportSafe():
+def exportSafeCustomers():
     df=pd.read_csv("Loan\customer.csv")
     safe=df[df["risk"]=="Safe"]
     safe.to_csv("Loan\export_safe.csv",index=False)
     print(safe)
 
-def exportRisk():
+def exportRiskCustomers():
     df=pd.read_csv("Loan\customer.csv")
     risk=df[df["risk"]=="Risk"]
     risk.to_csv("Loan\export_risk.csv",index=False)
     print(risk)
 
-def eligbleCustomers():
+def exportEligibleCustomers():
     df=pd.read_csv("Loan\customer.csv")
     el=df.query("salary>=50000 and credit>=700 and risk=='Safe'")
     el.to_csv("Loan\eligble_customer.csv",index=False)
     print(el)
 
-def salaryBarPlot():
+def displaySalaryBarChart():
     df=pd.read_csv("Loan\customer.csv")
     plt.figure(figsize=(10,5))
     plt.bar(df["name"],df["salary"],color="r")
@@ -537,11 +537,11 @@ def salaryBarPlot():
     plt.tight_layout()
     plt.show()
 
-def loanBarplot():
+def displayLoanBarChart():
     df=pd.read_csv("Loan\customer.csv")
     plt.figure(figsize=(10,5))
     plt.bar(df["name"],df["loan"],color="r")
-    for i in range(len(df["salary"])):
+    for i in range(len(df["loan"])):
         plt.text(i,df["loan"][i],df["loan"][i])
     plt.xticks(rotation=20)
     plt.xlabel("Customer's Name")
@@ -552,44 +552,87 @@ def loanBarplot():
     plt.tight_layout()
     plt.show()
 
+def displaySalaryHistogram():
+    df=pd.read_csv("Loan\customer.csv")
+    b=[0,20000,40000,60000,80000,100000]
+    plt.hist(df["salary"],bins=b,color="gold",label="Salary",edgecolor="b")
+    plt.title("Salary Histogram")
+    plt.xlabel("Salary")
+    plt.ylabel("Number of Customers")
+    plt.legend()
+    plt.show()
+
+def displayCreditHistogram():
+    df=pd.read_csv("Loan\customer.csv")
+    b=[400,700,750,800,850,900]
+    plt.hist(df["credit"],bins=b,color="r",label="Credit",edgecolor="b")
+    plt.title("Credit Histogram")
+    plt.xlabel("Credit Score")
+    plt.ylabel("Number of Customers")
+    plt.legend()
+    plt.show()
+
+def displaySalaryLoanScatterPlot():
+    df=pd.read_csv("Loan\customer.csv")
+    plt.figure(figsize=(8,5))
+    plt.scatter(df["salary"],df["loan"],color="r",marker="*",label="Salary",alpha=0.4)
+    plt.title("Salary and Loan Graph")
+    plt.xlabel("Salary")
+    plt.ylabel("Loan")
+    plt.grid()
+    plt.legend()
+    plt.show()
+
 while True:
-    print("Loan Risk Calculate......................................")
-    print("0.Exit")
-    print("1.Add Customer")
-    print("2.Show Customer's")
-    print("3.Search Customer")
-    print("4.Update Customer")
-    print("5.Delete Customer")
-    print("Numpy part..................................................")
-    print("6.Average Salary")
-    print("7.Maxium Loan Amount")
-    print("8.Minimum Credit Score")
-    print("9.Total Customer's")
-    print("10.High Risk Customer's")
-    print("11.High Level Salary Customer's")
-    print("12.Low Level Salary Customer's")
-    print("13.Loan to Salary Ratio")
-    print("14.Standard Deviation of Salary")
-    print("15.Median Salary")
-    print("16.Percentile of Salary")
-    print("17.Top Five Loans")
-    print("18.Top Five Salary")
-    print("19.Loan Distribution Analysis")
-    print("Pandas Part---------------------------------------------------")
-    print("20.Customer Reports")
-    print("21.Salary Analysis")
-    print("22.Loan Analysis")
-    print("23.Risk Analysis")
-    print("24.Search Customer")
-    print("25.Advanced Search")
-    print("26.Data Cleaning")
-    print("Export Reports-------------------------------------------------")
-    print("27.Safe Customer's")
-    print("28.Risk Customer's")
-    print("29.Eliglbe Customer's")
-    print("Matplotlib Part-------------------------------------------------")
-    print("30.Salary Plot Bar")
-    print("31.Loan Plot Bar")
+    print("="*60)
+    print("          Loan Risk Analysis System")
+    print("="*60)
+    ("0. Exit")
+    print("\n--------------- Customer Management ----------------")
+    print("1. Add Customer")
+    print("2. View All Customers")
+    print("3. Search Customer by ID")
+    print("4. Update Customer")
+    print("5. Delete Customer")
+
+    print("\n----------------- NumPy Analytics -------------------")
+    print("6. Calculate Average Salary")
+    print("7. Find Maximum Loan Amount")
+    print("8. Find Minimum Credit Score")
+    print("9. Count Total Customers")
+    print("10. Display High Risk Customers")
+    print("11. Display High Salary Customers")
+    print("12. Display Low Salary Customers")
+    print("13. Calculate Loan-to-Salary Ratio")
+    print("14. Salary Standard Deviation")
+    print("15. Median Salary")
+    print("16. Salary Percentile")
+    print("17. Top 5 Loan Customers")
+    print("18. Top 5 Salary Customers")
+    print("19. Loan Distribution Analysis")
+ 
+    print("\n---------------- Pandas Analytics -------------------")
+    print("20. Customer Report")
+    print("21. Salary Analysis")
+    print("22. Loan Analysis")
+    print("23. Risk Analysis")
+    print("24. Customer Search")
+    print("25. Advanced Customer Search")
+    print("26. Data Cleaning")
+
+    print("\n---------------- Export Reports ---------------------")
+    print("27. Export Safe Customers")
+    print("28. Export Risk Customers")
+    print("29. Export Eligible Customers")
+
+    print("\n--------------- Data Visualization ------------------")
+    print("30. Salary Bar Chart")
+    print("31. Loan Bar Chart")
+    print("32. Salary Histogram")
+    print("33. Credit Score Histogram")
+    print("34. Salary vs Loan Scatter Plot")
+
+    print("="*60)
     choice=int(input("Enter Your Choice:"))
     if(choice==1):
         addCustomer()
@@ -602,57 +645,63 @@ while True:
     elif(choice==5):
         deleteCustomer()
     elif(choice==6):
-        averageSalary()
+        calculateAverageSalary()
     elif(choice==7):
-        maxLoanAmount()
+        findMaximumLoanAmount()
     elif(choice==8):
         minimumCreditScore()
     elif(choice==9):
-        totalCustomer()
+        countTotalCustomers()
     elif(choice==10):
-        highRiskCustomers()
+        displayHighRiskCustomers()
     elif(choice==11):
-        highSalaryCustomer()
+        displayHighSalaryCustomers()
     elif(choice==12):
-        lowSalaryLevelCustomer()
+         displayLowSalaryCustomers()
     elif(choice==13):
-        loanToSalaryRatio()
+        calculateLoanToSalaryRatio()
     elif(choice==14):
-        stdDeviation()
+        calculateSalaryStdDeviation()
     elif(choice==15):
-        medianmiddle()
+        calculateMedianSalary()
     elif(choice==16):
-        salaryPercentaile()
+        calculateSalaryPercentile()
     elif(choice==17):
-        topHighest5()
+        displayTopFiveLoanCustomers()
     elif(choice==18):
-        top5highestSalary()
+        displayTopFiveSalaryCustomers()
     elif(choice==19):
-        loanDistAnalysis()
+        analyzeLoanDistribution()
     elif(choice==20):
-        customerReport()
+        generateCustomerReport()
     elif(choice==21):
-        salaryAnalysis()
+        analyzeSalary()
     elif(choice==22):
-        loanAnalysis()
+        analyzeLoan()
     elif(choice==23):
-        riskAnalysis()
+        analyzeRisk()
     elif(choice==24):
         searchCustomer()
     elif(choice==25):
-        advancedSearch()
+        advancedCustomerSearch()
     elif(choice==26):
-        dataCleaningMenu()
+        manageDataCleaning()
     elif(choice==27):
-        exportSafe()
+        exportSafeCustomers()
     elif(choice==28):
-        exportRisk()
+        exportRiskCustomers()
     elif(choice==29):
-        eligbleCustomers()
+        exportEligibleCustomers()
     elif(choice==30):
-        salaryBarPlot()
+        displaySalaryBarChart()
     elif(choice==31):
-        loanBarplot()
+        displayLoanBarChart()
+    elif(choice==32):
+        displaySalaryHistogram()
+    elif(choice==33):
+        displayCreditHistogram()
+    elif(choice==34):
+        displaySalaryLoanScatterPlot()
     elif(choice==0):
         print("Exit")
         break
