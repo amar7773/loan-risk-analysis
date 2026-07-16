@@ -583,6 +583,27 @@ def displaySalaryLoanScatterPlot():
     plt.legend()
     plt.show()
 
+def displaySalaryBoxPlot():
+    df=pd.read_csv("Loan\customer.csv")
+    plt.figure(figsize=(8,5))
+    plt.boxplot(df["salary"],boxprops=dict(color="g"),whiskerprops=dict(color="r"),flierprops=dict(color="y"),showmeans=True,tick_labels=["Salary"])
+    plt.title("Salary Box Plot")
+    plt.grid(axis="y", linestyle="--", alpha=0.5)
+    plt.show()
+
+def displaycreditstemPlot():
+    df=pd.read_csv("Loan\customer.csv")
+    plt.stem(df["name"],df["credit"],linefmt=":",markerfmt="ro",basefmt="g",label="Crdit")
+    plt.legend(loc=2)
+    plt.title("Credit Score Stem Plot",fontsize=20)
+    plt.xlabel("Customer's",fontsize=20)
+    plt.ylabel("Credit Score",fontsize=20)
+    plt.xticks(rotation=45)
+    plt.xticks(rotation=90)
+    plt.ylim(df["credit"].min()-20,df["credit"].max()+20)
+    plt.grid(axis="y", linestyle="--", alpha=0.5)
+    plt.show()
+
 while True:
     print("="*60)
     print("          Loan Risk Analysis System")
@@ -631,7 +652,8 @@ while True:
     print("32. Salary Histogram")
     print("33. Credit Score Histogram")
     print("34. Salary vs Loan Scatter Plot")
-
+    print("35.Salary Box Plot")
+    print("36.Stem Plot (Credit Score)")
     print("="*60)
     choice=int(input("Enter Your Choice:"))
     if(choice==1):
@@ -702,6 +724,10 @@ while True:
         displayCreditHistogram()
     elif(choice==34):
         displaySalaryLoanScatterPlot()
+    elif(choice==35):
+        displaySalaryBoxPlot()
+    elif(choice==36):
+        displaycreditstemPlot()
     elif(choice==0):
         print("Exit")
         break
