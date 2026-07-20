@@ -2,6 +2,7 @@ import json
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 customer={}
 try:
     with open("Loan\cust_data.json","r")as f:
@@ -522,6 +523,8 @@ def exportEligibleCustomers():
     el.to_csv("Loan\eligble_customer.csv",index=False)
     print(el)
 
+# ========================================Matplotlib===================================================
+
 def displaySalaryBarChart():
     df=pd.read_csv("Loan\customer.csv")
     plt.figure(figsize=(10,5))
@@ -604,6 +607,48 @@ def displaycreditstemPlot():
     plt.grid(axis="y", linestyle="--", alpha=0.5)
     plt.show()
 
+# ========================================Seaborn===================================================
+
+def  displaySalaryDistribution():
+    df=pd.read_csv("Loan\customer.csv")
+    sns.displot(df["salary"],kde=True,rug=True,color="g",legend=True)
+    plt.axvline(60000,color="gold")
+    plt.show()
+
+def displayLoanDistribution():
+    df=pd.read_csv("Loan\customer.csv")
+    sns.displot(df["loan"],kde=True,rug=True,color="g",legend=True)
+    plt.axvline(500000,color="gold")
+    plt.show()
+
+def displayCreditDistribution():
+    df=pd.read_csv("Loan\customer.csv")
+    sns.displot(df["credit"],kde=True,rug=True,color="g",legend=True)
+    plt.axvline(750,color="gold")
+    plt.show()
+
+def displayRiskAalysisBarplot():
+    df=pd.read_csv("Loan\customer.csv")
+    avg=df.groupby("risk")["salary"].mean()
+    avg_val=avg.index
+    avg_sal=avg.values
+    sns.barplot(x=avg_val,y=avg_sal,palette=["r","g"])
+    plt.title("Average Salary by Risk Category")
+    plt.xlabel("Risk Category")
+    plt.ylabel("Average Salary")
+    plt.grid(axis="y", linestyle="--", alpha=0.5)
+    for i in range(len(avg_sal)):
+        plt.text(i,avg_sal[i],round(avg_sal[i],2))
+    plt.show()
+
+def displaySalaryVsLoan():
+    df=pd.read_csv("Loan\customer.csv")
+    sns.scatterplot(x="salary",y="loan",data=df,hue="risk",style="risk",s=120)
+    plt.title("Salary V/s Loan")
+    plt.xlabel("Salary")
+    plt.ylabel("Loan")
+    plt.show()
+
 while True:
     print("="*60)
     print("          Loan Risk Analysis System")
@@ -646,7 +691,7 @@ while True:
     print("28. Export Risk Customers")
     print("29. Export Eligible Customers")
 
-    print("\n--------------- Data Visualization ------------------")
+    print("\n--------------- Data Visualization(Matplotlib)------------------")
     print("30. Salary Bar Chart")
     print("31. Loan Bar Chart")
     print("32. Salary Histogram")
@@ -654,6 +699,13 @@ while True:
     print("34. Salary vs Loan Scatter Plot")
     print("35.Salary Box Plot")
     print("36.Stem Plot (Credit Score)")
+
+    print("\n--------------- Data Visualization(Seaborn) ------------------")
+    print("37.Salary Distribution")
+    print("38.Loan Distribution")
+    print("39.Credit Distribution")
+    print("40.Risk Analysis Bar Plot")
+    print("41.Salary V/s Loan Scatter Plot (Seaborn)")
     print("="*60)
     choice=int(input("Enter Your Choice:"))
     if(choice==1):
@@ -728,6 +780,16 @@ while True:
         displaySalaryBoxPlot()
     elif(choice==36):
         displaycreditstemPlot()
+    elif(choice==37):
+        displaySalaryDistribution()
+    elif(choice==38):
+        displayLoanDistribution()
+    elif(choice==39):
+        displayCreditDistribution()
+    elif(choice==40):
+        displayRiskAalysisBarplot()
+    elif (choice==41):
+        displaySalaryVsLoan()
     elif(choice==0):
         print("Exit")
         break
