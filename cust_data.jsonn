@@ -1,0 +1,101 @@
+{
+    "101": {
+        "name": "Amar Singh",
+        "age": 22,
+        "salary": 80000,
+        "loan": 500000,
+        "credit": 740,
+        "exp": 2,
+        "risk": "Safe"
+    },
+    "102": {
+        "name": "Abhishek Singh",
+        "age": 23,
+        "salary": 65000,
+        "loan": 500000,
+        "credit": 760,
+        "exp": 2,
+        "risk": "Safe"
+    },
+    "103": {
+        "name": "Sursa",
+        "age": 25,
+        "salary": 54000,
+        "loan": 450000,
+        "credit": 740,
+        "exp": 1,
+        "risk": "Safe"
+    },
+    "104": {
+        "name": "Hiviraj Singh Sodha",
+        "age": 20,
+        "salary": 45000,
+        "loan": 250000,
+        "credit": 700,
+        "exp": 1,
+        "risk": "Safe"
+    },
+    "105": {
+        "name": "Khushi",
+        "age": 22,
+        "salary": 80000,
+        "loan": 60000,
+        "credit": 700,
+        "exp": 1,
+        "risk": "Safe"
+    },
+    "106": {
+        "name": "Priya",
+        "age": 25,
+        "salary": 80000,
+        "loan": 500000,
+        "credit": 750,
+        "exp": 4,
+        "risk": "Safe"
+    },
+    "107": {
+        "name": "Subhash Bishnoi",
+        "age": 28,
+        "salary": 100000,
+        "loan": 800000,
+        "credit": 800,
+        "exp": 8,
+        "risk": "Safe"
+    },
+    "108": {
+        "name": "Chetan",
+        "age": 26,
+        "salary": 50000,
+        "loan": 900000,
+        "credit": 740,
+        "exp": 4,
+        "risk": "Safe"
+    },
+    "109": {
+        "name": "Shaiyra Kanwar ",
+        "age": 23,
+        "salary": 150000,
+        "loan": 700000,
+        "credit": 850,
+        "exp": 2,
+        "risk": "Safe"
+    },
+    "110": {
+        "name": "Sanjna ",
+        "age": 29,
+        "salary": 30000,
+        "loan": 100000,
+        "credit": 450,
+        "exp": 2,
+        "risk": "Risk"
+    },
+    "111": {
+        "name": "Sanju Singh",
+        "age": 18,
+        "salary": 20000,
+        "loan": 200000,
+        "credit": 520,
+        "exp": 1,
+        "risk": "Safe"
+    }
+}

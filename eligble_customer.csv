@@ -1,7 +1,7 @@
 customer_id,name,age,salary,loan,credit,exp,risk
 101,Amar Singh,22,80000,500000,740,2,Safe
 102,Abhishek Singh,23,65000,500000,760,2,Safe
-103,Sursa,25,54000,400000,740,1,Safe
+103,Sursa,25,54000,450000,740,1,Safe
 105,Khushi,22,80000,60000,700,1,Safe
 106,Priya,25,80000,500000,750,4,Safe
 107,Subhash Bishnoi,28,100000,800000,800,8,Safe
