@@ -17,15 +17,6 @@
         "exp": 2,
         "risk": "Safe"
     },
-    "103": {
-        "name": "Sursa",
-        "age": 25,
-        "salary": 54000,
-        "loan": 450000,
-        "credit": 740,
-        "exp": 1,
-        "risk": "Safe"
-    },
     "104": {
         "name": "Hiviraj Singh Sodha",
         "age": 20,
