@@ -6,7 +6,7 @@ import seaborn as sns
 from python_crud import customer
 
 def displaySalaryBarChart():
-    df=pd.read_csv("Loan\customer.csv")
+    df=pd.read_csv("customer.csv")
     plt.figure(figsize=(10,5))
     plt.bar(df["name"],df["salary"],color="r")
     for i in range(len(df["salary"])):
@@ -21,7 +21,7 @@ def displaySalaryBarChart():
     plt.show()
 
 def displaySalaryHistogram():
-    df=pd.read_csv("Loan\customer.csv")
+    df=pd.read_csv("customer.csv")
     b=[0,20000,40000,60000,80000,100000]
     plt.hist(df["salary"],bins=b,color="gold",label="Salary",edgecolor="b")
     plt.title("Salary Histogram")
@@ -31,7 +31,7 @@ def displaySalaryHistogram():
     plt.show()
 
 def displaySalaryLoanScatterPlot():
-    df=pd.read_csv("Loan\customer.csv")
+    df=pd.read_csv("customer.csv")
     plt.figure(figsize=(8,5))
     plt.scatter(df["salary"],df["loan"],color="r",marker="*",label="Salary",alpha=0.4)
     plt.title("Salary and Loan Graph")
@@ -42,7 +42,7 @@ def displaySalaryLoanScatterPlot():
     plt.show()
 
 def displaySalaryBoxPlot():
-    df=pd.read_csv("Loan\customer.csv")
+    df=pd.read_csv("customer.csv")
     plt.figure(figsize=(8,5))
     plt.boxplot(df["salary"],boxprops=dict(color="g"),whiskerprops=dict(color="r"),flierprops=dict(color="y"),showmeans=True,tick_labels=["Salary"])
     plt.title("Salary Box Plot")
@@ -50,7 +50,7 @@ def displaySalaryBoxPlot():
     plt.show()
 
 def displaycreditstemPlot():
-    df=pd.read_csv("Loan\customer.csv")
+    df=pd.read_csv("customer.csv")
     plt.stem(df["name"],df["credit"],linefmt=":",markerfmt="ro",basefmt="g",label="Crdit")
     plt.legend(loc=2)
     plt.title("Credit Score Stem Plot",fontsize=20)
@@ -65,7 +65,7 @@ def displaycreditstemPlot():
 # ========================================Seaborn===================================================
 
 def displayRiskAalysisBarplot():
-    df=pd.read_csv("Loan\customer.csv")
+    df=pd.read_csv("customer.csv")
     avg=df.groupby("risk")["salary"].mean()
     avg_val=avg.index
     avg_sal=avg.values
@@ -79,7 +79,7 @@ def displayRiskAalysisBarplot():
     plt.show()
 
 def riskCountPlot():
-    df=pd.read_csv("Loan\customer.csv")
+    df=pd.read_csv("customer.csv")
     ax=sns.countplot(x="risk",data=df,palette=["g","r"])
     plt.title("Risk Distribution Analysis", fontsize=18)
     plt.xlabel("Risk/Safe")
@@ -99,14 +99,14 @@ def riskCountPlot():
     plt.show()
 
 def correlationHeatmap():
-    df=pd.read_csv("Loan\customer.csv")
+    df=pd.read_csv("customer.csv")
     x=df.drop(columns=["customer_id","name","risk"])
     sns.heatmap(x,vmin=0,vmax=10,cmap="Accent",annot=True,fmt=".0f",linewidth=10,linecolor="y")
     sns.set(font_scale=1)
     plt.show()
 
 def salaryRiskViolin():
-    df=pd.read_csv("Loan\customer.csv")
+    df=pd.read_csv("customer.csv")
     sns.violinplot(x="risk",y="salary",data=df,palette="Accent",inner="quart")
     plt.title("Salary and Risk Analysis")
     plt.xlabel("Risk/Safe")
@@ -114,7 +114,7 @@ def salaryRiskViolin():
     plt.show() 
 
 def customerPairPlot():
-    df=pd.read_csv("Loan\customer.csv")
+    df=pd.read_csv("customer.csv")
     sns.pairplot(df,kind="reg",diag_kind="hist",vars=df[["salary","loan","credit","age","exp"]],hue="risk")
     plt.show()
 

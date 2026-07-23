@@ -182,28 +182,9 @@ def manageDataCleaning():
         else:
             print("You Entered Wrong Choice")
 
-def exportSafeCustomers():
-    df=pd.read_csv("Loan\customer.csv")
-    safe=df[df["risk"]=="Safe"]
-    safe.to_csv("Loan\export_safe.csv",index=False)
-    print(safe)
-
-def exportRiskCustomers():
-    df=pd.read_csv("Loan\customer.csv")
-    risk=df[df["risk"]=="Risk"]
-    risk.to_csv("Loan\export_risk.csv",index=False)
-    print(risk)
-
-def exportEligibleCustomers():
-    df=pd.read_csv("Loan\customer.csv")
-    el=df.query("salary>=50000 and credit>=700 and risk=='Safe'")
-    el.to_csv("Loan\eligble_customer.csv",index=False)
-    print(el)
-
 
 def pandaAnalyz():
-    if __name__ == "__main__":
-         while True:
+     while True:
             print("\n---------------- Pandas Analytics -------------------")
             print("1. Customer Report")
             print("2. Salary Analysis")

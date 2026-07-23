@@ -129,33 +129,34 @@ def analyzeLoanDistribution():
 
 
 def numpyanalyz():
-    while True:
-        print("\n----------------- NumPy Analytics -------------------")
-        print("1. Salary Statics")
-        print("2. Credit Statics")
-        print("3. Count Total Customers")
-        print("4. Display High Risk Customers")
-        print("5. Display High Salary Customers")
-        print("6. Calculate Loan-to-Salary Ratio")
-        print("7. Loan Distribution Analysis")
-        print("8. Back")
-        choice = int(input("Choose Your Option : "))
-        if (choice==1):
-            salaryStatistics()
-        elif(choice==2):
-            creditStatistics()
-        elif(choice==3):
-            countTotalCustomers()
-        elif(choice==4):
-            displayHighRiskCustomers()
-        elif(choice==5):
-            displayHighSalaryCustomers()
-        elif(choice==6):
-            calculateLoanToSalaryRatio()
-        elif(choice==7):
-            analyzeLoanDistribution()
-        elif(choice==8):
-            print("Returning to Main Menu...")
-            break
-        else:
-            print("You Enterd Wrong Choice")
+    if __name__ == "__main__":
+        while True:
+            print("\n----------------- NumPy Analytics -------------------")
+            print("1. Salary Statics")
+            print("2. Credit Statics")
+            print("3. Count Total Customers")
+            print("4. Display High Risk Customers")
+            print("5. Display High Salary Customers")
+            print("6. Calculate Loan-to-Salary Ratio")
+            print("7. Loan Distribution Analysis")
+            print("8. Back")
+            choice = int(input("Choose Your Option : "))
+            if (choice==1):
+                salaryStatistics()
+            elif(choice==2):
+                creditStatistics()
+            elif(choice==3):
+                countTotalCustomers()
+            elif(choice==4):
+                displayHighRiskCustomers()
+            elif(choice==5):
+                displayHighSalaryCustomers()
+            elif(choice==6):
+                calculateLoanToSalaryRatio()
+            elif(choice==7):
+                analyzeLoanDistribution()
+            elif(choice==8):
+                print("Returning to Main Menu...")
+                break
+            else:
+                print("You Enterd Wrong Choice")
