@@ -356,3 +356,30 @@ def overAllDataHealth():
         print("High risk customers should be reviewed")
         print("Data quality needs improvement")
 
+def aiLoanAssistant():
+    while True:
+        print("""=============== AI LOAN ASSISTANT ===============
+        1. Analyze Complete Dataset
+        2. Analyze Customer by ID
+        3. Loan Approval Suggestion
+        4. High Risk Reason Analysis
+        5. Smart Recommendations
+        6. Overall Dataset Health
+        7. Back
+        =================================================""")
+        choice=int(input("Choose a Option:"))
+        if(choice==1):
+            Ailoans_Reports()
+        elif(choice==2):
+            analyzCustomerByID()
+        elif(choice==3):
+            LoanApporvelSuggestion()
+        elif(choice==4):
+            highRiskReasonAnalysis()
+        elif(choice==5):
+            smartRecomandtion()
+        elif(choice==6):
+            overAllDataHealth()
+        elif(choice==7):
+            print("Back")
+            break
