@@ -1,5 +1,5 @@
 customer_id,name,age,salary,loan,credit,exp,risk
-101,Amar Singh,22,80000,500000,740,2,Safe
+101,Amar Singh,22,100000,500000,740,2,Safe
 102,Abhishek Singh,23,65000,500000,760,2,Safe
 104,Hiviraj Singh Sodha,20,45000,250000,700,1,Safe
 105,Khushi,22,80000,60000,700,1,Safe

@@ -5,20 +5,20 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 customer={}
 try:
-    with open(r"Loan\cust_data.json","r")as f:
+    with open("cust_data.json","r")as f:
         customer=json.load(f)
         customer={int(k):v for k,v in customer.items()}
 except FileNotFoundError:
     customer={}
 def customerData():
-    with open(r"Loan\cust_data.json","w")as f:
+    with open("cust_data.json","w")as f:
         json.dump(customer,f,indent=4)
 
 def saveCsv():
     print("saveCsv() Called")
     df=pd.DataFrame.from_dict(customer,orient="index")
     df.index.name = "customer_id"
-    df.to_csv(r"Loan\customer.csv",index=True)
+    df.to_csv(r"customer.csv",index=True)
     print("CSV Saved")
     
 def addCustomer():
@@ -80,6 +80,9 @@ def searchCustomerById():
     customerData()
 def updateCustomer():
     customer_id=int(input("Enter Customer ID:"))
+    print("Entered ID:", customer_id)
+    print("All IDs:", list(customer.keys()))
+    print("Exists:", customer_id in customer)
     if customer_id in customer:
         while True:
             print("""
@@ -139,6 +142,7 @@ def updateCustomer():
                     risk = "Risk"
                 else:
                     risk = "Safe"
+                customer[customer_id]["risk"] = risk
                 customerData()
                 saveCsv()
             elif(choice==5):
@@ -149,6 +153,7 @@ def updateCustomer():
                     risk = "Risk"
                 else:
                     risk = "Safe"
+                customer[customer_id]["risk"] = risk
                 customerData()
                 saveCsv()
             elif(choice==6):
@@ -159,6 +164,7 @@ def updateCustomer():
                     risk = "Risk"
                 else:
                     risk = "Safe"
+                customer[customer_id]["risk"] = risk
                 customerData()
                 saveCsv()
             elif(choice==7):
