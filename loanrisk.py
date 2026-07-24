@@ -4,7 +4,7 @@ from numpy_analysis import *
 from pandas_analysis import *
 from visualizationData import *
 from reports import *
-# from ai_assistant import *
+from aiboat import *
 while True:
     print("="*60)
     print("Loan Risk Analysis System")
@@ -24,6 +24,8 @@ while True:
     print("8. Data Visualization")
     print("\n----------------- Export Report's --------------------")
     print("9.Export Report's")
+    print("\n----------------- AI ASSISTANT --------------------")
+    print("10. AI ASSISTANT")
     print("="*60)
     choice=int(input("Enter Your Choice:"))
     if(choice==1):
@@ -44,6 +46,8 @@ while True:
         dataVisualization()
     elif(choice==9):
         reportsSaves()
+    elif(choice==10):
+        aiLoanAssistant()
     elif(choice==0):
         print("Exit")
         break
