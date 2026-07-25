@@ -129,9 +129,8 @@ def analyzeLoanDistribution():
 
 
 def numpyanalyz():
-    if __name__ == "__main__":
-        while True:
-            print("""\n----------------- NumPy Analytics -------------------
+    while True:
+        print("""\n----------------- NumPy Analytics -------------------
             =================================================
             1. Salary Statics
             2. Credit Statics")
@@ -142,23 +141,21 @@ def numpyanalyz():
             7. Loan Distribution Analysis")
             8. Back
             =================================================""")
-            choice = int(input("Choose Your Option : "))
-            if (choice==1):
-                salaryStatistics()
-            elif(choice==2):
-                creditStatistics()
-            elif(choice==3):
-                countTotalCustomers()
-            elif(choice==4):
-                displayHighRiskCustomers()
-            elif(choice==5):
-                displayHighSalaryCustomers()
-            elif(choice==6):
-                calculateLoanToSalaryRatio()
-            elif(choice==7):
-                analyzeLoanDistribution()
-            elif(choice==8):
-                print("Returning to Main Menu...")
-                break
-            else:
-                print("You Enterd Wrong Choice")
+        choice = int(input("Choose Your Option : "))
+        if (choice==1):
+            salaryStatistics()
+        elif(choice==2):
+            creditStatistics()
+        elif(choice==3):
+            countTotalCustomers()
+        elif(choice==4):
+            displayHighRiskCustomers()
+        elif(choice==5):
+            displayHighSalaryCustomers()
+        elif(choice==6):
+            calculateLoanToSalaryRatio()
+        elif(choice==7):
+            analyzeLoanDistribution()
+        elif(choice==8):
+            print("Returning to Main Menu...")
+            break
