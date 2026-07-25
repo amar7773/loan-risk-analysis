@@ -136,14 +136,16 @@ def searchCustomer():
 
 def manageDataCleaning():
     while True:
-        print("========== Data Cleaning ==========")
-        print("1. Show Missing Values")
-        print("2. Fill Missing Salary")
-        print("3. Fill Missing Loan")
-        print("4. Replace Risk Values")
-        print("5. Remove Duplicate Customers")
-        print("6. Remove Missing Rows")
-        print("7. Back")
+        print("""========== Data Cleaning ==========
+        =================================================
+        1. Show Missing Values
+        2. Fill Missing Salary
+        3. Fill Missing Loan
+        4. Replace Risk Values
+        5. Remove Duplicate Customers
+        6. Remove Missing Rows
+        7. Back 
+        =================================================""")
         df=pd.read_csv("Loan\customer.csv")
         choice=int(input("Enter Your Choice:"))
         if(choice==1):

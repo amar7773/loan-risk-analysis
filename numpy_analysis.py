@@ -131,15 +131,17 @@ def analyzeLoanDistribution():
 def numpyanalyz():
     if __name__ == "__main__":
         while True:
-            print("\n----------------- NumPy Analytics -------------------")
-            print("1. Salary Statics")
-            print("2. Credit Statics")
-            print("3. Count Total Customers")
-            print("4. Display High Risk Customers")
-            print("5. Display High Salary Customers")
-            print("6. Calculate Loan-to-Salary Ratio")
-            print("7. Loan Distribution Analysis")
-            print("8. Back")
+            print("""\n----------------- NumPy Analytics -------------------
+            =================================================
+            1. Salary Statics
+            2. Credit Statics")
+            3. Count Total Customers")
+            4. Display High Risk Customers")
+            5. Display High Salary Customers")
+            6. Calculate Loan-to-Salary Ratio")
+            7. Loan Distribution Analysis")
+            8. Back
+            =================================================""")
             choice = int(input("Choose Your Option : "))
             if (choice==1):
                 salaryStatistics()
