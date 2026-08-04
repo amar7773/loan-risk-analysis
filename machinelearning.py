@@ -48,16 +48,25 @@ def compareModels():
     print("Logistic Regression :",logistic_acc)
     print("KNN                 :",knn_acc)
     print("Decision Tree       :",decision_acc)
-    models={
+    accuracies={
         "Logistic Regression":logistic_acc,
         "KNN":knn_acc,
         "Decision Tree":decision_acc
     }
+    models = {
+    "Logistic Regression": logistic_model,
+    "KNN": knn_model,
+    "Decision Tree": decision_model
+    }
     if logistic_acc == knn_acc == decision_acc:
         print("🏆 All Models Perform Equally")
+        print("Using Decision Tree for Prediction")
+        best_name="Decision Tree"
+        best_model=decision_model
     else:
-        best_models=max(models,key=models.get)
-        print("Best Models          :",best_models)
-        print("============================================")
+        best_name=max(accuracies,key=accuracies.get)
+        best_model=models[best_name]
+        return best_name,best_model,scaler
+    print("============================================")
 
 compareModels()
