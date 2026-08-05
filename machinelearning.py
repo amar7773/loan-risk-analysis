@@ -7,6 +7,8 @@ from python_crud import customer
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler,LabelEncoder
 from sklearn.metrics import accuracy_score
@@ -21,52 +23,39 @@ def trainModels():
     scaler=StandardScaler()
     x_train=scaler.fit_transform(x_train)
     x_test=scaler.transform(x_test)
-    logistic_model=LogisticRegression()
-    knn_model=KNeighborsClassifier()
-    decision_model=DecisionTreeClassifier()
-    logistic_model.fit(x_train,y_train)
-    knn_model.fit(x_train,y_train)
-    decision_model.fit(x_train,y_train)
-    print("""
-    ==============================
-    Training ML Models...
-    ✔ Logistic Regression Trained
-    ✔ KNN Trained
-    ✔ Decision Tree Trained
-    ==============================""")
-    return logistic_model,knn_model,decision_model,scaler, x_test, y_test
+    models={
+        "Logistic Regression":LogisticRegression(),
+        "KNN":KNeighborsClassifier(n_neighbors=3),
+        "Decision Tree":DecisionTreeClassifier(),
+        "Naive Bayes":GaussianNB(),
+        "SVM":SVC(kernel="rbf")
+    }
+    print("\n========== Training ML Models ==========\n")
+    for name,model in models.items():
+        model.fit(x_train,y_train)
+        print(f"✔ {name} Trained")
+    print("\n========================================\n")
+    return models,scaler, x_test, y_test
 
 def compareModels():
-    logistic_model, knn_model, decision_model, scaler, x_test, y_test = trainModels()
-    pred_logistic=logistic_model.predict(x_test)
-    pred_knn=knn_model.predict(x_test)
-    pred_decision=decision_model.predict(x_test)
-    logistic_acc=accuracy_score(y_test,pred_logistic)
-    knn_acc=accuracy_score(y_test,pred_knn)
-    decision_acc=accuracy_score(y_test,pred_decision)
-    print("============= Model Comparison =============")
-    print("Logistic Regression :",logistic_acc)
-    print("KNN                 :",knn_acc)
-    print("Decision Tree       :",decision_acc)
-    accuracies={
-        "Logistic Regression":logistic_acc,
-        "KNN":knn_acc,
-        "Decision Tree":decision_acc
-    }
-    models = {
-    "Logistic Regression": logistic_model,
-    "KNN": knn_model,
-    "Decision Tree": decision_model
-    }
-    if logistic_acc == knn_acc == decision_acc:
+    models,scaler, x_test, y_test = trainModels()
+    accuracies={}
+    print("\n========== Model Comparison ==========\n")
+    for name,model in models.items():
+        prediction=model.predict(x_test)
+        acc=accuracy_score(y_test,prediction)
+        accuracies[name]=acc
+        print(f"{name:22} : {round(acc*100,2)}")
+    print()
+    if(len(set(accuracies.values()))==1):
         print("🏆 All Models Perform Equally")
         print("Using Decision Tree for Prediction")
         best_name="Decision Tree"
-        best_model=decision_model
     else:
         best_name=max(accuracies,key=accuracies.get)
-        best_model=models[best_name]
-        return best_name,best_model,scaler
-    print("============================================")
+        print(f"Best Model :{best_name}")
+    best_model=models[best_name]
+    print("\n======================================\n")
+    return best_name, best_model, scaler
 
 compareModels()
