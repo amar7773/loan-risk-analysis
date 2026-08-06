@@ -79,5 +79,23 @@
         "credit": 450,
         "exp": 2,
         "risk": "Risk"
+    },
+    "111": {
+        "name": "Rakhi",
+        "age": 22,
+        "salary": 20000,
+        "loan": 10000,
+        "credit": 400,
+        "exp": 1,
+        "risk": "Risk"
+    },
+    "112": {
+        "name": "Yuvraj",
+        "age": 25,
+        "salary": 50000,
+        "loan": 200000,
+        "credit": 550,
+        "exp": 2,
+        "risk": "Safe"
     }
 }

@@ -8,3 +8,5 @@ customer_id,name,age,salary,loan,credit,exp,risk
 108,Chetan,26,50000,900000,740,4,Safe
 109,Shaiyra Kanwar ,23,150000,700000,850,2,Safe
 110,Sanjna ,29,30000,100000,450,2,Risk
+111,Rakhi,22,20000,10000,400,1,Risk
+112,Yuvraj,25,50000,200000,550,2,Safe
