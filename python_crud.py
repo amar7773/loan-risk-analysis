@@ -32,10 +32,10 @@ def addCustomer():
         loan=int(input("Enter Loan Amount:"))
         credit=int(input("Enter Credit Score:"))
         experience=int(input("Enter How Many Year Of Exprience You Have:"))
-        if credit<500:
-            risk="Risk"
-        else:
+        if salary>=50000 and credit>=700 and experience>=2 and loan<=salary*5:
             risk="Safe"
+        else:
+            risk="Risk"
         customer[customer_id]={
             "name":name,
             "age":age,
@@ -189,3 +189,5 @@ def deleteCustomer():
         print("Customer Deleted Successfuly!")
     else:
          print("No Customer ID Found")
+print("Total Customers:", len(customer))
+print("First ID:", list(customer.keys())[:5])
