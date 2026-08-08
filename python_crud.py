@@ -189,5 +189,3 @@ def deleteCustomer():
         print("Customer Deleted Successfuly!")
     else:
          print("No Customer ID Found")
-print("Total Customers:", len(customer))
-print("First ID:", list(customer.keys())[:5])
