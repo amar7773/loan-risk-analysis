@@ -27,7 +27,6 @@ def trainModel():
     df["risk"]=le.fit_transform(df["risk"])
     y=df["risk"]
     X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=42)
-    scaler=StandardScaler()
     models=RandomForestClassifier(
         n_estimators=100,
         random_state=42
@@ -83,4 +82,58 @@ def predictNewCustomer():
     else:
         print("Status          : ⚠️ HIGH RISK")
     print("==============================================")
-predictNewCustomer()
+
+def compareModels():
+    df=pd.read_csv("customer.csv")
+    X=df[['age', 'salary', 'loan', 'credit', 'exp']]
+    le=LabelEncoder()
+    df["risk"]=le.fit_transform(df["risk"])
+    y=df["risk"]
+    X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=42)
+    result=[]
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+    trained_models = {}
+    models={
+        "Logistic Regression":(LogisticRegression(max_iter=1000),True),
+        "KNN":(KNeighborsClassifier(n_neighbors=5),True),
+        "Decision Tree":(DecisionTreeClassifier(random_state=42),False),
+        "Random Forest":(RandomForestClassifier(n_estimators=100,random_state=42),False),
+        "Naive Bayes":(GaussianNB(),False),
+        "SVM":(SVC(),True),
+        "Gradient Boosting":(GradientBoostingClassifier(random_state=42),False)
+    }
+    for name,(model,use_scaling) in models.items():
+        if use_scaling:
+            model.fit(X_train_scaled,y_train)
+            y_pred=model.predict(X_test_scaled)
+        else:
+            model.fit(X_train,y_train)
+            y_pred=model.predict(X_test)
+        accuracy=accuracy_score(y_test,y_pred)
+        precision=precision_score(y_test,y_pred)
+        recall=recall_score(y_test,y_pred)
+        f1=f1_score(y_test,y_pred)
+        result.append({
+        "Model":name,
+        "Accuracy":f"{round(accuracy*100,2)}%",
+        "Precision":f"{round(precision*100,2)}%",
+        "Recall":f"{round(recall*100,2)}%",
+        "F1_Score":f"{round(accuracy*100,2)}%"
+    })
+        trained_models[name]=model
+    print("\n==============================================")
+    print("             MODEL COMPARISON")
+    print("==============================================")
+    result_df=pd.DataFrame(result)
+    print(result_df.to_string(index=False))
+    best_row=result_df.loc[result_df["F1_Score"].idxmax()]
+    best_model_name=best_row["Model"]
+    best_model=trained_models[best_model_name]
+    best_score=best_row["F1_Score"]
+    print("Best Model Name :",best_model_name)
+    print("Best Model      :",best_model)
+    print("Best Score      :",best_score)
+    return(best_model_name,best_model,scaler,le,result_df)
+compareModels()
