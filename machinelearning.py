@@ -9,11 +9,12 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.svm import SVC
-from sklearn.model_selection import train_test_split,GridSearchCV,RandomizedSearchCV
+from sklearn.model_selection import train_test_split,GridSearchCV,RandomizedSearchCV,cross_val_score
 from sklearn.ensemble import StackingClassifier,RandomForestClassifier,AdaBoostClassifier,GradientBoostingClassifier
 from xgboost import XGBClassifier
 from sklearn.preprocessing import StandardScaler,LabelEncoder
 from sklearn.metrics import accuracy_score,precision_score,recall_score,f1_score,confusion_matrix
+import joblib
 
 def trainModel():
     df=pd.read_csv("customer.csv")
@@ -51,38 +52,6 @@ def evaluateModel():
     print("Confusion Matrix :")
     print(cm)
     return accuracy, precision, recall, f1, cm
-
-def predictNewCustomer():
-    models,le,X_test,y_test=trainModel()
-    age=int(input("Enter Age :"))
-    salary=int(input("Enter Salary :"))
-    loan=int(input("Enter Loan :"))
-    credit=int(input("Enter Credit Score :"))
-    experience=int(input("Enter Experience :"))
-    new_customer=pd.DataFrame([[age,salary,loan,credit,experience]],columns=["age", "salary", "loan", "credit", "exp"])
-    new_pred=models.predict(new_customer)
-    result = le.inverse_transform(new_pred)[0]
-    probability=models.predict_proba(new_customer)
-    predict_index=list(models.classes_).index(new_pred)
-    prediction_prob=probability[0][predict_index]   
-    print("\n==============================================")
-    print("          🤖 AI LOAN RISK PREDICTION")
-    print("==============================================")
-    print("Age          :",age)
-    print("Salary       :",salary)
-    print("Loan         :",loan)
-    print("Credit Score :",credit)
-    print("Experience   :",experience)
-    print("----------------------------------------------")
-    print("Prediction   :",result)
-    print("Probability  :",round(prediction_prob*100,2),"%")
-    print("==============================================")
-    if result=="Safe":
-        print("Status          : ✅ LOW RISK")
-    else:
-        print("Status          : ⚠️ HIGH RISK")
-    print("==============================================")
-
 def compareModels():
     df=pd.read_csv("customer.csv")
     X=df[['age', 'salary', 'loan', 'credit', 'exp']]
@@ -120,7 +89,7 @@ def compareModels():
         "Accuracy":f"{round(accuracy*100,2)}%",
         "Precision":f"{round(precision*100,2)}%",
         "Recall":f"{round(recall*100,2)}%",
-        "F1_Score":f"{round(accuracy*100,2)}%"
+        "F1_Score":f"{round(f1*100,2)}%"
     })
         trained_models[name]=model
     print("\n==============================================")
@@ -136,4 +105,135 @@ def compareModels():
     print("Best Model      :",best_model)
     print("Best Score      :",best_score)
     return(best_model_name,best_model,scaler,le,result_df)
-compareModels()
+def featureImportance():
+    df=pd.read_csv("customer.csv")
+    X=df[['age', 'salary', 'loan', 'credit', 'exp']]
+    le=LabelEncoder()
+    df["risk"]=le.fit_transform(df["risk"])
+    y=df["risk"]
+    scaler=StandardScaler()
+    X_scaled=scaler.fit_transform(X)
+    model=LogisticRegression(max_iter=1000)
+    model.fit(X_scaled,y)
+    importance=model.coef_[0]
+    importance_df=pd.DataFrame({
+        "Features":X.columns,
+        "Coefficent":importance,
+        "Importance":np.abs(importance)
+    })
+    importance_df=importance_df.sort_values(
+        by="Importance",
+        ascending=True
+    )
+    print("\n==============================================")
+    print("             FEATURE IMPORTANCE")
+    print("==============================================")
+    print(importance_df.to_string(index=False))
+    return importance_df
+
+def crossValidation():
+    df=pd.read_csv("customer.csv")
+    X=df[['age', 'salary', 'loan', 'credit', 'exp']]
+    le=LabelEncoder()
+    df["risk"]=le.fit_transform(df["risk"])
+    y=df["risk"]
+    scaler=StandardScaler()
+    X_scaled=scaler.fit_transform(X)
+    model=LogisticRegression(max_iter=1000)
+    score=cross_val_score(
+        model,
+        X_scaled,
+        y,
+        cv=5,
+        scoring="f1"
+    )
+    print("\n==============================================")
+    print("          CROSS VALIDATION")
+    print("==============================================")
+    print("FOLD1 :",round(score[0],4))
+    print("FOLD2 :",round(score[1],4))
+    print("FOLD3 :",round(score[2],4))
+    print("FOLD4 :",round(score[3],4))
+    print("FOLD5 :",round(score[4],4))
+    print(f"Average F1 Score : {round(score.mean()*100,2)}%")
+    return score
+
+def hyperparameterTuning():
+    df=pd.read_csv("customer.csv")
+    X=df[['age', 'salary', 'loan', 'credit', 'exp']]
+    le=LabelEncoder()
+    df["risk"]=le.fit_transform(df["risk"])
+    y=df["risk"]
+    scaler=StandardScaler()
+    X_scaled=scaler.fit_transform(X)
+    model=LogisticRegression(max_iter=1000)
+    score=cross_val_score(
+        model,
+        X_scaled,
+        y,
+        cv=5,
+        scoring="f1"
+    )
+    grid=GridSearchCV(
+        estimator=model,
+        param_grid={
+        "C": [0.01, 0.1, 1, 10, 100],
+        "solver": ["liblinear", "lbfgs"]
+        },
+        cv=5,
+        scoring="f1"
+    )
+    grid.fit(X_scaled,y)
+    print("Best Params :",grid.best_params_)
+    print(f"Best F1 Score : {round(grid.best_score_*100,2)}%")
+    best_model=grid.best_estimator_
+    print("Best Model :",best_model)
+    print("==============================================")
+    return best_model, scaler, le
+
+def predictNewCustomer():
+    best_model, scaler, le = hyperparameterTuning()
+    age = int(input("Enter Age :"))
+    salary = int(input("Enter Salary :"))
+    loan = int(input("Enter Loan :"))
+    credit = int(input("Enter Credit Score :"))
+    experience = int(input("Enter Experience :"))
+    new_customer = pd.DataFrame(
+        [[age, salary, loan, credit, experience]],
+        columns=["age", "salary", "loan", "credit", "exp"]
+    )
+    # New customer ko same scaler se scale karo
+    new_customer_scaled = scaler.transform(new_customer)
+    # Prediction
+    new_pred = best_model.predict(new_customer_scaled)
+    result = le.inverse_transform(new_pred)[0]
+    # Probability
+    probability = best_model.predict_proba(new_customer_scaled)
+    predict_index = list(best_model.classes_).index(new_pred[0])
+    prediction_prob = probability[0][predict_index]
+    print("\n==============================================")
+    print("          🤖 AI LOAN RISK PREDICTION")
+    print("==============================================")
+    print("Age          :", age)
+    print("Salary       :", salary)
+    print("Loan         :", loan)
+    print("Credit Score :", credit)
+    print("Experience   :", experience)
+    print("----------------------------------------------")
+    print("Prediction   :", result)
+    print("Probability  :", round(prediction_prob * 100, 2), "%")
+    print("==============================================")
+    if result == "Safe":
+        print("Status       : ✅ LOW RISK")
+    else:
+        print("Status       : ⚠️ HIGH RISK")
+    print("==============================================")
+
+def saveTrainedModel():
+    best_model, scaler, le = hyperparameterTuning()
+    joblib.dump(best_model, "loan_risk_model.pkl")
+    joblib.dump(scaler, "loan_scaler.pkl")
+    joblib.dump(le, "risk_encoder.pkl")
+    print("Model Saved Successfully")
+
+saveTrainedModel()

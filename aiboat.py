@@ -3,6 +3,11 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from python_crud import customer
+import joblib
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 def Ailoans_Reports():
     df=pd.read_csv("Loan\customer.csv")
@@ -355,7 +360,6 @@ def overAllDataHealth():
         print("Credit score is below average")
         print("High risk customers should be reviewed")
         print("Data quality needs improvement")
-
 def aiLoanAssistant():
     while True:
         print("""=============== AI LOAN ASSISTANT ===============
