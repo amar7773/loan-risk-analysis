@@ -167,13 +167,6 @@ def hyperparameterTuning():
     scaler=StandardScaler()
     X_scaled=scaler.fit_transform(X)
     model=LogisticRegression(max_iter=1000)
-    score=cross_val_score(
-        model,
-        X_scaled,
-        y,
-        cv=5,
-        scoring="f1"
-    )
     grid=GridSearchCV(
         estimator=model,
         param_grid={
